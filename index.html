@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     PROJECT 4: EXPENSE TRACKER
+     File: index.html — structure
+     New here: a real form with multiple field types, and a chart
+     canvas that JavaScript draws into. See NOTES.md.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Expense tracker built with vanilla JavaScript and Chart.js — track income and expenses, see your balance and a category breakdown.">
+  <title>Expense Tracker | Project 04</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="app">
+    <header class="app-header">
+      <h1>Expense Tracker</h1>
+      <p class="tagline">Track what comes in and what goes out. Saved in your browser.</p>
+    </header>
+
+    <!-- ---------- SUMMARY CARDS ----------
+         Balance is income − expenses. Rendered by renderSummary(). -->
+    <section class="summary">
+      <div class="summary-card balance">
+        <span class="summary-label">Balance</span>
+        <strong id="balance">R0,00</strong>
+      </div>
+      <div class="summary-card income">
+        <span class="summary-label">Income</span>
+        <strong id="totalIncome">R0,00</strong>
+      </div>
+      <div class="summary-card expense">
+        <span class="summary-label">Expenses</span>
+        <strong id="totalExpense">R0,00</strong>
+      </div>
+    </section>
+
+    <!-- ---------- ADD FORM ---------- -->
+    <form id="txForm" class="tx-form" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="description">Description</label>
+          <input type="text" id="description" placeholder="e.g. Groceries" maxlength="60" required>
+        </div>
+        <div class="field">
+          <label for="amount">Amount (R)</label>
+          <input type="number" id="amount" placeholder="0.00" min="0.01" step="0.01" required>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="type">Type</label>
+          <select id="type">
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="category">Category</label>
+          <select id="category">
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Rent">Rent</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Salary">Salary</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <p id="formError" class="form-error" role="alert"></p>
+      <button type="submit" class="btn-primary">Add transaction</button>
+    </form>
+
+    <!-- ---------- CHART ----------
+         Chart.js draws inside the <canvas>. If the CDN fails to load,
+         #chartFallback is shown instead (see renderChart in app.js). -->
+    <section class="chart-section">
+      <h2>Spending by category</h2>
+      <div class="chart-wrap">
+        <canvas id="expenseChart" aria-label="Spending by category chart" role="img"></canvas>
+        <p id="chartFallback" class="chart-fallback hidden">Chart unavailable — no expenses to show.</p>
+      </div>
+    </section>
+
+    <!-- ---------- LIST ---------- -->
+    <section class="list-section">
+      <div class="list-header">
+        <h2>Transactions</h2>
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="income">Income</button>
+          <button class="filter-btn" data-filter="expense">Expenses</button>
+          <button id="resetBtn" class="btn-reset">Reset</button>
+        </div>
+      </div>
+
+      <ul id="txList" class="tx-list"></ul>
+
+      <div id="emptyState" class="empty-state">
+        <span class="empty-icon">🧾</span>
+        <p>No transactions yet. Add your first one above.</p>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <p>Project 04 of 24 • <a href="https://keatonpillay.netlify.app">Back to portfolio</a></p>
+    </footer>
+  </main>
+
+  <!-- Chart.js from a CDN. Note: this needs an internet connection.
+       app.js checks whether it actually loaded before using it. -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
